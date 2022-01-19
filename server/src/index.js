@@ -1,15 +1,14 @@
 require('dotenv').config()
 const cors = require('cors');
-require('./db/connection');
 const express = require('express');
 const app = express();
 
 app.use(express.json())
 app.use(cors())
 
-app.get('/', (req, res) => {
-    res.send('Hola mundo')
-})
+require('./db/connection');
+
+app.use('/api/clients', require('./routes/clients'))
 
 
 app.listen(process.env.PORT, () => {
