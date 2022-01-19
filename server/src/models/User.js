@@ -6,7 +6,7 @@ const User = sequelize.define('users', {
         type: Sequelize.INTEGER, 
         primaryKey: true
     },
-    "username": {
+    "email": {
         type: Sequelize.STRING
     },
     "password": {

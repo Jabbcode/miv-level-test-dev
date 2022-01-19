@@ -19,7 +19,7 @@ const getRepairs = async (req, res) => {
             }]
         })
 
-        res.json({
+        res.status(200).json({
             data: Repairs
         })
     } catch (error) {
@@ -36,11 +36,11 @@ const getRepairsByPhone = async (req, res) => {
     try {
         const Repairs = await Repair.findAll({
             where: { phone_id },
-            attributes:  ['id', 'solution', 'price', 'date' /* 'phone_id' */],
+            attributes: ['id', 'solution', 'price', 'date' /* 'phone_id' */],
         })
-    
-        res.json({
-            data:Repairs
+
+        res.status(200).json({
+            data: Repairs
         })
     } catch (error) {
         console.log(error)
@@ -51,8 +51,35 @@ const getRepairsByPhone = async (req, res) => {
     }
 }
 
+const createRepair = async (req, res) => {
+    const { solution, price, date, phone_id } = req.body
+    
+    try {
+        const newRepair = await Repair.create({
+            solution, price, date, phone_id
+        }, {
+            fields: ['solution', 'price', 'date', 'phone_id']
+        })
+
+        if(newRepair) { 
+            return res.status(200).json({
+                message: 'Reparacion creada correctamente',
+                data: newRepair
+            })
+        }
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            message: 'Something goes wrong',
+            data: {}
+        })
+    }
+}
+
 
 module.exports = {
     getRepairs,
-    getRepairsByPhone
+    getRepairsByPhone,
+    createRepair
 }

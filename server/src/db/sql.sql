@@ -4,7 +4,7 @@ USE `phone_repair_shop`;
 
 CREATE TABLE IF NOT EXISTS `users` (
 	`id` INT NOT NULL AUTO_INCREMENT,
-	`username` VARCHAR(20) NOT NULL,
+	`email` VARCHAR(25) NOT NULL,
 	`password` VARCHAR(20) NOT NULL,
 	PRIMARY KEY (`id`)
 );

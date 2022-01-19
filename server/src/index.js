@@ -9,7 +9,9 @@ app.use(cors())
 require('./db/connection');
 
 app.use('/api/clients', require('./routes/clients'));
+
 app.use('/api/phones', require('./routes/phones'));
+
 app.use('/api/repairs', require('./routes/repairs'));
 
 
