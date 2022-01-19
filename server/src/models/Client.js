@@ -1,25 +1,34 @@
-const { Sequelize, DataTypes} = require('sequelize');
+const Sequelize = require('sequelize');
 const sequelize = require('../db/connection');
 
 const Client = sequelize.define('clients', {
     "id": { 
-        type: Sequelize.DataTypes.INTEGER, 
+        type: Sequelize.INTEGER, 
         primaryKey: true
     },
     "firstName": {
-        type: DataTypes.STRING
+        type: Sequelize.STRING
     },
     "lastName": {
-        type: DataTypes.STRING
+        type: Sequelize.STRING
     },
     "phoneNumber": {
-        type: DataTypes.STRING
+        type: Sequelize.STRING
     },
     "email":{
-        type: DataTypes.STRING
+        type: Sequelize.STRING
     }
 }, {
     timestamps: false
 });
+
+// Phone.hasMany(Client, {
+//     foreignKey: 'client_id',
+//     sourceKey: 'id'
+// });
+// Client.belongsTo(Phone, {
+//     foreignKey: 'client_id',
+//     sourceKey: 'id'
+// });
 
 module.exports = Client;

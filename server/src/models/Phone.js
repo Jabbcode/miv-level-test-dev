@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../db/connection');
+const Client = require('./Client');
 
 const Phone = sequelize.define('phones', {
     "id": { 
@@ -19,10 +20,19 @@ const Phone = sequelize.define('phones', {
         type: Sequelize.STRING
     },
     "client_id":{
-        type: Sequelize.INT
+        type: Sequelize.INTEGER
     }
 }, {
     timestamps: false
+});
+
+Phone.belongsTo(Client, {
+    foreignKey: 'client_id',
+    sourceKey: 'id'
+});
+Client.hasMany(Phone, {
+    foreignKey: 'client_id',
+    sourceKey: 'id'
 });
 
 

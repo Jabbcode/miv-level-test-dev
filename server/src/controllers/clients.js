@@ -1,10 +1,10 @@
-
 const Client = require('../models/Client');
 
 const getClients = async ( req, res ) => {
     try {
         const clients = await Client.findAll({
-            attributes: ['id', 'firstName', 'lastName', 'phoneNumber', 'email'],
+            attributes: ['id', 'firstName', 'lastName', 'phoneNumber', 'email']
+            
         })
 
         res.json({
