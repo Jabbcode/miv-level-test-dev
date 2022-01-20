@@ -14,6 +14,9 @@ app.use('/api/phones', require('./routes/phones'));
 
 app.use('/api/repairs', require('./routes/repairs'));
 
+app.use('/api/auth', require('./routes/auth') );
+
+
 
 app.listen(process.env.PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${ process.env.PORT }`);

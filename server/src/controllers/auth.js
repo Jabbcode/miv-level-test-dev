@@ -1,0 +1,116 @@
+const User = require('../models/User');
+const bcrypt = require('bcryptjs');
+const { generarJWT } = require('../helpers/jwt');
+
+const userCreate = async(req, res) => {
+
+    const { username, email, password } = req.body
+
+    try {
+        const dbUser = await User.findOne({ 
+            where: { username: username, email: email }
+        });
+        
+        if( dbUser ) {
+            return res.status(400).json({
+                ok: false,
+                message: 'Ya existe un usuario con esas credenciales'
+            });
+        }
+
+        const salt = bcrypt.genSaltSync();
+        hashPassword = bcrypt.hashSync( password, salt );
+
+        const newUser = await User.create({
+            username, email, password: hashPassword
+        }, {
+            fields: ['username', 'email', 'password']
+        })
+    
+        const token = await generarJWT( newUser.email, newUser.username );
+
+        return res.status(201).json({
+            username: username,
+            email: email,
+            token: token
+        });
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            msg: 'Por favor hable con el administrador'
+        });
+    }    
+}
+
+const login = async(req, res) => {
+
+    const { email, password } = req.body
+
+    try {
+        
+        const dbUser = await User.findOne({
+            where: { email: email }
+        });
+        
+        if( !dbUser ) {
+            return res.status(400).json({
+                msg: 'Las credenciales no son correctas'
+            });
+        }
+
+        const validPassword = bcrypt.compareSync( password, dbUser.password );
+
+        if( !validPassword ) {
+            return res.status(400).json({
+                msg: 'Las credenciales no son correctas'
+            })
+        }
+
+        const token = await generarJWT( dbUser.email, dbUser.name );
+
+        return res.status(200).json({
+            name: dbUser.name,
+            email: dbUser.email,
+            token: token
+        });
+
+    } catch (error) {
+        console.log( error )
+        return res.status(500).json({
+            msg: 'Hable con el administrador'
+        });
+    }
+}
+
+const renovarToken = async(req, res) => {
+
+    const { uid, name } = req;
+
+    const token = await generarJWT( uid, name );
+
+    return res.json({
+        uid: uid,
+        name: name,
+        token: token
+    });
+}
+
+const allUser = async(req, res) => {
+
+    const usuarios = await User.findAll({
+        attributes: ['id', 'username', 'password']
+    });
+
+    return res.status(200).json({
+        data: usuarios
+    });
+}
+
+
+module.exports = {
+    userCreate,
+    login,
+    renovarToken,
+    allUser
+}

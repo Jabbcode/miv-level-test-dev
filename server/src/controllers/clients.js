@@ -36,6 +36,18 @@ const createClient = async ( req, res ) => {
     const { firstName, lastName, phoneNumber, email } = req.body
     
     try {
+
+        const client = await Client.findOne({
+            where: { email },
+            attributes: ['id', 'firstName', 'lastName', 'phoneNumber', 'email']
+        })
+
+        if(client) {
+            return res.status(400).json({
+                message: 'Ya existe un cliente con ese correo'
+            })
+        }
+
         const newClient = await Client.create({
             firstName, lastName, phoneNumber, email
         }, {

@@ -1,5 +1,5 @@
 const Router = require('express');
-const { check } = require('express-validator');
+const { check, body } = require('express-validator');
 
 const { getClients, createClient, getClientById } = require('../controllers/clients');
 const { validarCampos } = require('../middlewares/validar-campos');
@@ -10,11 +10,11 @@ router.get('/', getClients);
 
 router.get('/:id', getClientById);
 
-router.post('/', [
+router.post('/',  [
     check('firstName', 'El nombre es obligatorio').not().isEmpty(),
     check('lastName', 'El apellido es obligatorio').not().isEmpty(),
     check('phoneNumber', 'El numero de telefono es obligatorio').not().isEmpty().exists(),
-    check('email', 'El correo electronico es obligatorio').not().isEmpty().exists().isEmail(),
+    check('email', 'El correo electronico es obligatorio').not().isEmpty().isEmail(),
     validarCampos
 ], createClient);
 

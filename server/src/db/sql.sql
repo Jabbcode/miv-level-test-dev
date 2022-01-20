@@ -4,8 +4,9 @@ USE `phone_repair_shop`;
 
 CREATE TABLE IF NOT EXISTS `users` (
 	`id` INT NOT NULL AUTO_INCREMENT,
+	`username` VARCHAR(25) NOT NULL,
 	`email` VARCHAR(25) NOT NULL,
-	`password` VARCHAR(20) NOT NULL,
+	`password` VARCHAR(100) NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
@@ -41,10 +42,9 @@ CREATE TABLE IF NOT EXISTS `repairs` (
 	CONSTRAINT `FK__phones` FOREIGN KEY (`phone_id`) REFERENCES `phones` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
 ) COLLATE='utf8mb4_general_ci';
 
-INSERT INTO `users` (`username`, `password`) 
+INSERT INTO `users` (`username`, `email`, `password`) 
     VALUES 
-        ('Admin', '123456789'),
-        ('Admin2', '123456');
+        ('admin', 'admin@test.test', '$2a$10$pA8FJp1Pys7nhhIxsyllZummEZNH9oRnYXV4Z3G3S.eCSIndLCBhi');
 
 INSERT INTO `clients` (`firstName`, `lastName`, `phoneNumber`, `email`) 
     VALUES 

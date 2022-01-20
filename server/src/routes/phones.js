@@ -7,6 +7,7 @@ const { validarCampos } = require('../middlewares/validar-campos');
 const router = Router();
 
 router.get('/', getPhones);
+
 router.get('/client/:client_id', getPhonesByClient);
 
 router.post('/', [
