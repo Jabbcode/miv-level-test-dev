@@ -43,7 +43,8 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(email, password)
       .subscribe( response => {
-        this.router.navigate(['/']);
+        localStorage.setItem('token', response.token)
+        this.router.navigate(['/store']);
       })
   }
 

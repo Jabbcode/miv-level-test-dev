@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,8 @@ import { map } from 'rxjs/operators';
 export class AuthService {
 
   private baseUrl: string = environment.baseUrl;
+
+  
 
   constructor( private http: HttpClient) { }
 
@@ -19,9 +22,6 @@ export class AuthService {
       "email": email,
       "password": password
     })
-    .pipe(
-      map( response => console.log( response ) )
-    )
   }
 
   login( email: string, password: string ): Observable<any> {
@@ -29,8 +29,18 @@ export class AuthService {
       "email": email,
       "password": password
     })
-    .pipe(
-      map( response => console.log( response ) )
-    )
+  }
+
+  verificarAutenticacion(token: any): any {
+    
+    if( !localStorage.getItem('token') ) {
+      return of(false);
+    }
+    
+
+    return this.http.get(this.baseUrl + '/api/auth/renew', {
+      headers: new HttpHeaders({ 'x-token': token })
+    })
+
   }
 }

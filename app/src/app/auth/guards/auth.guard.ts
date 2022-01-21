@@ -14,20 +14,16 @@ export class AuthGuard implements CanActivate, CanLoad {
     private router: Router
   ) {}
 
+  token = localStorage.getItem('token');
+
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      
-    /* if( this.authService.auth.id ) {
-      return true;
-    }
 
-    console.log( 'Bloqueado por el AuthGuard - CanActivate')
-    return false; */
-
-    return this.authService.verificarAutenticacion()
+    return this.authService.verificarAutenticacion(this.token)
             .pipe(
-              tap( estaAutenticado => { // Lo que recibe el observable
+              tap( estaAutenticado => {
                 if( !estaAutenticado ) {
                   this.router.navigate(['./auth/login']);
                 }
@@ -35,22 +31,11 @@ export class AuthGuard implements CanActivate, CanLoad {
             );
   }
 
-  canLoad( // Sirve para prevenir la carga de la ruta del modulo en el que es usado
+  canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
 
-      /* console.log( 'canLoad', false );
-      console.log( route );
-      console.log( segments ); */
-
-      /* if( this.authService.auth.id ) {
-        return true;
-      }
-
-      console.log( 'Bloqueado por el AuthGuard - CanLoad')
-      return false; */
-
-      return this.authService.verificarAutenticacion()
+      return this.authService.verificarAutenticacion(this.token)
               .pipe(
                 tap( estaAutenticado => {
                   if( !estaAutenticado ) {

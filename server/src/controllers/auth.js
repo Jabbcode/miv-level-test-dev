@@ -8,7 +8,7 @@ const userCreate = async(req, res) => {
 
     try {
         const dbUser = await User.findOne({ 
-            where: { username: username, email: email }
+            where: { email: email }
         });
         
         if( dbUser ) {
@@ -27,11 +27,8 @@ const userCreate = async(req, res) => {
             fields: ['username', 'email', 'password']
         })
     
-        const token = await generarJWT( newUser.email, newUser.username );
-
+        const token = await generarJWT( newUser.null, newUser.username );
         return res.status(201).json({
-            username: username,
-            email: email,
             token: token
         });
 
@@ -67,8 +64,7 @@ const login = async(req, res) => {
             })
         }
 
-        const token = await generarJWT( dbUser.email, dbUser.name );
-
+        const token = await generarJWT( dbUser.id, dbUser.username );
         return res.status(200).json({
             name: dbUser.name,
             email: dbUser.email,
@@ -85,15 +81,12 @@ const login = async(req, res) => {
 
 const renovarToken = async(req, res) => {
 
-    const { uid, name } = req;
+    const { id, username } = req;
 
-    const token = await generarJWT( uid, name );
+    const token = await generarJWT( id, username );
 
-    return res.json({
-        uid: uid,
-        name: name,
-        token: token
-    });
+    const status = true
+    return res.json(status);
 }
 
 const allUser = async(req, res) => {
