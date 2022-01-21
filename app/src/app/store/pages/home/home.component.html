@@ -1,0 +1,31 @@
+<div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center">
+
+                <a routerLink="./store" class="navbar-brand" >Store Phone</a>
+                
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a routerLink="./clients" routerLinkActive="active" class="nav-link" >Clientes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="./phones" routerLinkActive="active" class="nav-link" >Telefonos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="./repairs" routerLinkActive="active" class="nav-link" >Reparaciones</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-light">Cerrar sesion</button>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container-fluid">
+        <router-outlet></router-outlet>
+    </div>
+</div>

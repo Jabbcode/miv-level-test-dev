@@ -1,23 +1,21 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { ClientComponent } from './components/clients/client.component';
+import { RouterModule } from '@angular/router';
+import { ClientComponent } from './pages/clients/client.component';
+import { PhonesComponent } from './pages/phones/phones.component';
+import { HomeComponent } from './pages/home/home.component';
+import { RepairsComponent } from './pages/repairs/repairs.component';
 
-const routes: Routes = [
+const routes = [
   {
     path: '',
+    component: HomeComponent,
     children: [
-      {
-        path: 'clients',
-        component: ClientComponent
-      },
-    //   {
-    //     path: 'phones',
-    //     component: 
-    //   },
-    //   {
-    //     path: '**',
-    //     redirectTo: 'login'
-    //   }
+      { path: 'clients', component: ClientComponent },
+      { path: 'phones', component: PhonesComponent },
+      { path: 'phones/client/:id', component: PhonesComponent },
+      { path: 'repairs', component: RepairsComponent },
+      { path: 'repairs/phone/:id', component: RepairsComponent },
+      { path: '**', redirectTo: 'clients' }
     ]
   }
 ]
@@ -30,4 +28,4 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class AuthRoutingModule { }
+export class StoreRoutingModule { }

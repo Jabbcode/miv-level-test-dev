@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { map, tap } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 
 
@@ -11,8 +10,6 @@ import { of, Observable } from 'rxjs';
 export class AuthService {
 
   private baseUrl: string = environment.baseUrl;
-
-  
 
   constructor( private http: HttpClient) { }
 
@@ -36,7 +33,6 @@ export class AuthService {
     if( !localStorage.getItem('token') ) {
       return of(false);
     }
-    
 
     return this.http.get(this.baseUrl + '/api/auth/renew', {
       headers: new HttpHeaders({ 'x-token': token })

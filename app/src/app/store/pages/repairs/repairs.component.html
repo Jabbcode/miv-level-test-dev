@@ -1,0 +1,32 @@
+<div class="card shadow-sm mt-3">
+    <div class="card-header text-white bg-primary">
+        Listado de reparaciones
+    </div>
+
+    <div class="card-body" style="padding: 0;">
+
+        <table class="table table-hover">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Costo</th>
+                    <th scope="col">Solucion</th>
+                    <th scope="col">Telefono</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-default text-center" *ngFor="let repair of repairs">
+                    <td>{{ repair.date }}</td>
+                    <td>{{ repair.price }} $</td>
+                    <td>{{ repair.solution }}</td>
+                    <td >
+                        <button class="btn btn-secondary" (click)="phone(repair.phone_id)">
+                            <i class="fas fa-mobile-alt"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+</div>

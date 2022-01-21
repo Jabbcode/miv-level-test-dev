@@ -13,6 +13,10 @@ const routes: Routes = [
     loadChildren: () => import('./store/store.module').then( m => m.StoreModule),
     canLoad: [ AuthGuard ],
     canActivate: [ AuthGuard ]
+  },
+  {
+    path: '**',
+    redirectTo: '/store'
   }
 ];
 
