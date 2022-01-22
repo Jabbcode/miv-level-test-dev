@@ -1,21 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-
-interface Phone {
-  mark: string,
-  model: string,
-  serialNumber: string,
-  problem: string,
-  client_id: number
-}
-
-interface Repair {
-  solution: string,
-  price: number,
-  date: Date,
-  phone_id: number
-}
+import { Client, Phone, Repair } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -27,11 +13,11 @@ export class StoreService {
   constructor(private http: HttpClient) { }
 
   getClients() {
-    return this.http.get(this.baseUrl + '/api/clients')
+    return this.http.get<Client[]>(this.baseUrl + '/api/clients')
   }
 
   getClientById(id: number) {
-    return this.http.get(this.baseUrl + `/api/clients/${id}`)
+    return this.http.get<Client>(this.baseUrl + `/api/clients/${id}`)
   }
 
   getPhones() {
@@ -39,7 +25,7 @@ export class StoreService {
   }
 
   getPhoneById(id: number) {
-    return this.http.get(this.baseUrl + `/api/phones/${id}`)
+    return this.http.get<Phone>(this.baseUrl + `/api/phones/${id}`)
   }
 
   getPhonesByClient(id: number) {
