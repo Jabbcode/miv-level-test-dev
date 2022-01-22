@@ -13,8 +13,8 @@ export class LoginComponent implements OnInit {
   @ViewChild('formularioLogin') formularioLogin!: NgForm;
 
   initForm = {
-    email: 'jose@gmail.com',
-    password: '123456'
+    email: '',
+    password: ''
   }
 
   constructor(

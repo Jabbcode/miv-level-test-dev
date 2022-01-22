@@ -13,9 +13,9 @@ export class RegisterComponent implements OnInit {
   @ViewChild('formularioRegistro') formularioRegistro!: NgForm;
 
   initForm = {
-    username: 'Jose',
-    email: 'jose@gmail.com',
-    password: '123456'
+    username: '',
+    email: '',
+    password: ''
   }
 
   constructor(
