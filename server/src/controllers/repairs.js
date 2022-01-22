@@ -19,9 +19,7 @@ const getRepairs = async (req, res) => {
             }]
         })
 
-        res.status(200).json({
-            data: Repairs
-        })
+        res.status(200).json(Repairs)
     } catch (error) {
         console.log(error)
         res.status(500).json({
@@ -39,9 +37,7 @@ const getRepairsByPhone = async (req, res) => {
             attributes: ['id', 'solution', 'price', 'date' /* 'phone_id' */],
         })
 
-        res.status(200).json({
-            data: Repairs
-        })
+        res.status(200).json(Repairs)
     } catch (error) {
         console.log(error)
         res.json({

@@ -1,12 +1,13 @@
 const Router = require('express');
 const { check } = require('express-validator');
 
-const { getPhones, getPhonesByClient, createPhone } = require('../controllers/phones');
+const { getPhones, getPhonesByClient, createPhone, getPhoneById } = require('../controllers/phones');
 const { validarCampos } = require('../middlewares/validar-campos');
 
 const router = Router();
 
 router.get('/', getPhones);
+router.get('/:id', getPhoneById);
 
 router.get('/client/:client_id', getPhonesByClient);
 
