@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-around">
+
+    <div class="card shadow-sm mt-3 animate__animated animate__slideInLeft" style="width: 100%">
+        <div class="card-header text-white bg-primary d-flex justify-content-between align-items-center" *ngIf="!forID">
+            Listado de Reparaciones
+        </div>
+
+        <div class="card-header text-white bg-primary d-flex justify-content-between align-items-center" *ngIf="forID">
+            Reparaciones a {{ phone.mark }} {{ phone.model }}
+            <button class="btn btn-secondary" (click)="mostrarFormulario()" *ngIf="agregar">Cerrar formulario</button>
+            <button class="btn btn-secondary" (click)="mostrarFormulario()" *ngIf="!agregar">Agregar Reparacion</button>
+        </div>
+
+        <div class="card-body" style="padding: 0;">
+
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Costo</th>
+                        <th scope="col">Solucion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-default text-center" *ngFor="let repair of repairs">
+                        <td>{{ repair.date }}</td>
+                        <td>{{ repair.price }} $</td>
+                        <td>{{ repair.solution }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+
+    <div *ngIf="agregar" [ngClass]="{ 'contenedor': agregar, 'nada': !agregar }" class="animate__animated animate__slideInRight">
+        <div class="card shadow-sm m-3" >
+            <form (ngSubmit)="agregarReparacion()" #formAddRepair="ngForm" autocomplete="off" class="container mt-4">
+                <fieldset class="card shadow-sm p-3">
+                    <legend>Agregar Reparacion</legend>
+                    <div class="form-group">
+                        <label class="form-label mt-2">Solucion</label>
+                        <input type="text" name="solution" class="form-control" [ngModel]="initForm.solution">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label mt-2">Costo</label>
+                        <input type="number" name="price" class="form-control" [ngModel]="initForm.price">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label mt-2">Fecha</label>
+                        <input type="date" name="date" class="form-control" [ngModel]="initForm.date">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label mt-2">Telefono</label>
+                        <select name="phone_id" class="form-control" [ngModel]="initForm.phone_id">
+                            <option value="{{phone.id}}">{{ phone.mark }} {{ phone.model }}</option>
+                        </select>
+                    </div>
+                    <button type="subtmit" class="btn btn-primary mt-3">Agregar</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

@@ -7,9 +7,7 @@ const getClients = async ( req, res ) => {
             
         })
 
-        res.status(200).json({
-            data: clients
-        })
+        res.status(200).json(clients)
     } catch (error) {
         console.log(error)
         res.status(500).json({

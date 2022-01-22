@@ -13,13 +13,30 @@ const getPhones = async (req, res) => {
 
         })
 
-        res.status(200).json({
-            data: Phones
-        })
+        res.status(200).json(Phones)
     } catch (error) {
         console.log(error)
         res.status(500).json({
             message: 'algo malo paso'
+        })
+    }
+}
+
+const getPhoneById = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const phone = await Phone.findOne({
+            where: { id },
+            attributes:  ['id', 'mark', 'model', 'serialNumber', 'problem', /* 'client_id' */],
+        })
+    
+        res.status(200).json(phone)
+    } catch (error) {
+        console.log(error)
+        res.json({
+            message: 'Algo salio mal',
+            data: {}
         })
     }
 }
@@ -33,9 +50,7 @@ const getPhonesByClient = async (req, res) => {
             attributes:  ['id', 'mark', 'model', 'serialNumber', 'problem', /* 'client_id' */],
         })
     
-        res.status(200).json({
-            data:phones
-        })
+        res.status(200).json(phones)
     } catch (error) {
         console.log(error)
         res.json({
@@ -76,6 +91,7 @@ const createPhone = async ( req, res ) => {
 
 module.exports = {
     getPhones,
+    getPhoneById,
     getPhonesByClient,
     createPhone
 }

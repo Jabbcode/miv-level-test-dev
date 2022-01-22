@@ -1,0 +1,16 @@
+<form (ngSubmit)="login()" #formularioLogin="ngForm" autocomplete="off" class="container mt-4">
+    <fieldset class="card shadow-sm p-3">
+        <legend>Formulario de Ingreso</legend>
+        <div class="form-group">
+            <label class="form-label mt-2">Correo electronico</label>
+            <input type="email" name="email" class="form-control" placeholder="Ingrese su correo electronico"
+                [ngModel]="initForm.email">
+        </div>
+        <div class="form-group">
+            <label class="form-label mt-2">Contraseña</label>
+            <input type="password" name="password" class="form-control" placeholder="Ingrese su contraseña"
+                [ngModel]="initForm.password">
+        </div>
+        <button type="subtmit" class="btn btn-primary mt-3">Iniciar Sesion</button>
+    </fieldset>
+</form>
