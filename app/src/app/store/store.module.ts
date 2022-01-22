@@ -6,6 +6,8 @@ import { ClientComponent } from './pages/clients/client.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PhonesComponent } from './pages/phones/phones.component';
 import { RepairsComponent } from './pages/repairs/repairs.component';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { RepairsComponent } from './pages/repairs/repairs.component';
   ],
   imports: [
     CommonModule,
-    StoreRoutingModule
+    StoreRoutingModule,
+    FormsModule
   ]
 })
 export class StoreModule { }

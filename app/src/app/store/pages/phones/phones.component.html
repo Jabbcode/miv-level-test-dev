@@ -1,38 +1,76 @@
-<div class="card shadow-sm mt-3">
-    <div class="card-header text-white bg-primary" *ngIf="!forID">
-        Listado de Telefonos en la tienda
+<div class="d-flex justify-content-around">
+    <div class="card shadow-sm mt-3 animate__animated animate__slideInLeft" style="width: 100%">
+
+        <div class="card-header text-white bg-primary d-flex justify-content-between align-items-center" *ngIf="!forID">
+            <h3 style="margin: 0;">Listado de Telefonos en la tienda</h3> 
+        </div>
+
+        <div class="card-header text-white bg-primary d-flex justify-content-between align-items-center" *ngIf="forID">
+            <h3 style="margin: 0;">Telefonos de {{ client[0].firstName }} {{ client[0].lastName }}</h3> 
+            <button class="btn btn-secondary" (click)="mostrarFormulario()" *ngIf="agregar">Cerrar formulario</button>
+            <button class="btn btn-secondary" (click)="mostrarFormulario()" *ngIf="!agregar">Agregar telefono</button>
+        </div>
+
+        <div class="card-body" style="padding: 0;">
+
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">Marca</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Numero de Serial</th>
+                        <th scope="col">Problema</th>
+                        <th scope="col">Reparaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-default text-center" *ngFor="let phone of phones">
+                        <td>{{ phone.mark }}</td>
+                        <td>{{ phone.model }}</td>
+                        <td>{{ phone.serialNumber }}</td>
+                        <td>{{ phone.problem }}</td>
+                        <td >
+                            <button class="btn btn-secondary" (click)="getRepairsByPhone(phone.id)">
+                                <i class="fas fa-tools"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
     </div>
 
-    <div class="card-header text-white bg-primary" *ngIf="forID">
-        Listado de telefonos del cliente
+    <div *ngIf="agregar" [ngClass]="{ 'contenedor': agregar, 'nada': !agregar }" class="animate__animated animate__slideInRight">
+        <div class="card shadow-sm m-3" >
+            <form (ngSubmit)="agregarTelefono()" #formAddPhone="ngForm" autocomplete="off" class="container mt-4">
+                <fieldset class="card shadow-sm p-3">
+                    <legend>Agregar telefono</legend>
+                    <div class="form-group">
+                        <label class="form-label mt-2">Marca</label>
+                        <input type="text" name="mark" class="form-control" [ngModel]="initForm.mark">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label mt-2">Modelo</label>
+                        <input type="text" name="model" class="form-control" [ngModel]="initForm.model">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label mt-2">Numero de serie</label>
+                        <input type="text" name="serialNumber" class="form-control" [ngModel]="initForm.serialNumber">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label mt-2">Problema</label>
+                        <input type="text" name="problem" class="form-control" [ngModel]="initForm.problem">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label mt-2">Cliente</label>
+                        <select name="client_id" class="form-control" [ngModel]="initForm.client_id">
+                            <option value="{{client[0].id}}">{{ client[0].firstName }} {{ client[0].lastName }}</option>
+                        </select>
+                    </div>
+                    <button type="subtmit" class="btn btn-primary mt-3">Agregar</button>
+                </fieldset>
+            </form>
+        </div>
     </div>
-
-    <div class="card-body" style="padding: 0;">
-
-        <table class="table table-hover">
-            <thead>
-                <tr class="text-center">
-                    <th scope="col">Marca</th>
-                    <th scope="col">Modelo</th>
-                    <th scope="col">Numero de Serial</th>
-                    <th scope="col">Problema</th>
-                    <th scope="col">Reparaciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="table-default text-center" *ngFor="let phone of phones">
-                    <td>{{ phone.mark }}</td>
-                    <td>{{ phone.model }}</td>
-                    <td>{{ phone.serialNumber }}</td>
-                    <td>{{ phone.problem }}</td>
-                    <td >
-                        <button class="btn btn-secondary" (click)="getRepairsByPhone(phone.id)">
-                            <i class="fas fa-tools"></i>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    
 </div>

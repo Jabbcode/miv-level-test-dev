@@ -1,34 +1,68 @@
-<div class="card shadow-sm mt-3">
-    <div class="card-header text-white bg-primary">
-        Listado de clientes 
+<div class="d-flex justify-content-around">
+
+    <div class="card shadow-sm mt-3 animate__animated animate__slideInLeft" style="width: 100%">
+        <div class="card-header text-white bg-primary d-flex justify-content-between align-items-center">
+            <h3 style="margin: 0;">Listado de clientes</h3> 
+            <button class="btn btn-secondary" (click)="mostrarFormulario()" *ngIf="agregar">Cerrar formulario</button>
+            <button class="btn btn-secondary" (click)="mostrarFormulario()" *ngIf="!agregar">Agregar Cliente</button>
+        </div>
+
+        
+        
+        <div class="card-body" style="padding: 0;">
+
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Nro. Telefono</th>
+                        <th scope="col">Correo Electronico</th>
+                        <th scope="col">Telefonos</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr class="table-default text-center" *ngFor="let client of clients" >
+                        <td>{{ client.firstName }}</td>
+                        <td>{{ client.lastName }}</td>
+                        <td>{{ client.phoneNumber }}</td>
+                        <td>{{ client.email }}</td>
+                        <td >
+                            <button class="btn btn-secondary" (click)="getPhonesByClient(client.id)">
+                                <i class="fas fa-mobile-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div class="card-body" style="padding: 0;">
-
-        <table class="table table-hover">
-            <thead>
-                <tr class="text-center">
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Apellido</th>
-                    <th scope="col">Nro. Telefono</th>
-                    <th scope="col">Correo Electronico</th>
-                    <th scope="col">Telefonos</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="table-default text-center" *ngFor="let client of clients">
-                    <td>{{ client.firstName }}</td>
-                    <td>{{ client.lastName }}</td>
-                    <td>{{ client.phoneNumber }}</td>
-                    <td>{{ client.email }}</td>
-                    <td >
-                        <button class="btn btn-secondary" (click)="getPhonesByClient(client.id)">
-                            <i class="fas fa-mobile-alt"></i>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div *ngIf="agregar" [ngClass]="{ 'contenedor': agregar, 'nada': !agregar }" class="animate__animated animate__slideInRight">
+        <div class="card shadow-sm m-3" >
+            <form (ngSubmit)="agregarCliente()" #formAddClient="ngForm" autocomplete="off" class="container mt-4">
+                <fieldset class="card shadow-sm p-3">
+                    <legend>Nuevo cliente</legend>
+                    <div class="form-group">
+                        <label class="form-label mt-2">Nombre</label>
+                        <input type="text" name="firstName" class="form-control" [ngModel]="initForm.firstName">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label mt-2">Apellido</label>
+                        <input type="text" name="lastName" class="form-control" [ngModel]="initForm.lastName">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label mt-2">Numero de telefono</label>
+                        <input type="text" name="phoneNumber" class="form-control" [ngModel]="initForm.phoneNumber">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label mt-2">Correo electronico</label>
+                        <input type="email" name="email" class="form-control" [ngModel]="initForm.email">
+                    </div>
+                    <button type="subtmit" class="btn btn-primary mt-3">Agregar</button>
+                </fieldset>
+            </form>
+        </div>
     </div>
-    
 </div>
+
