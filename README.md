@@ -11,7 +11,7 @@ Npm v8.1.0
 
 # Despliegue de la Base de datos
 
-El codigo SQL de la base de datos se encuentra en el resposito, en la ruta: server -> src -> db -> sql.sql. 
+El codigo SQL de la base de datos se encuentra en el resposito, en la carpeta: server -> src -> db -> sql.sql. 
 Esta base de datos lleva por nombre 'phone_repair_shop'
 
 ## Uso de la base de datos
@@ -29,7 +29,7 @@ conectarse a la base de datos.
 
 ## Configuracion del Backend
 
-Primero debe dirigirse al archivo en la ruta: server -> .env.example, crear un archivo en la misma ruta con el nombre '.env', 
+Primero debe dirigirse al archivo en la carpeta: server -> .env.example, crear un archivo en la misma ruta con el nombre '.env', 
 copiar y pegar las variables y agregar sus valores, alli configurarlas con las credenciales del servidor donde subio la base de datos.
 
 PORT=4000
@@ -49,6 +49,9 @@ SECRET_JWT=
 Por ultimo debe situarse en la carpeta 'server' de la aplicacion y ejecutar el comando 'npm run dev', esto desplegara un servidor local en el puerto 4000
 
 # Despliegue del Frontend
+
+Nota: En el caso de que no este probando la app en un servidor local, debe dirigirse a la carpeta: app -> src -> enviroments y dentro de cada archivo cambiar la ruta
+'localhost:4000', por la ruta de produccion que posea para poder conectarse a la base de datos. En caso contrario solo seguir las instrucciones que quedan.
 
 Situarse en la carpeta APP de la aplicacion y ejecutar el comando 'ng serve', esto desplegara un servidor local en el puerto 4200
 
