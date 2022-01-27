@@ -1,6 +1,10 @@
 # miv-level-test-dev
 Reto Técnico Mid Level INNPACTIA
 
+# url de produccion
+
+https://mid-level-test-app.netlify.app/auth/login
+
 # Debe tener instalado
 
 Angular v12 en adelante
